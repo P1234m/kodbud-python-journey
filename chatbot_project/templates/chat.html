@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Chatbot</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; background: #f4f7f6; }
+        h1 { text-align: center; color: #333; }
+        #chat-window { height: 500px; border: 1px solid #ddd; border-radius: 8px; padding: 20px; overflow-y: scroll; background: #fff; margin-bottom: 20px; }
+        .message { margin-bottom: 15px; }
+        .user-message { text-align: right; color: #0056b3; }
+        .bot-message { text-align: left; color: #333; background: #e9ecef; padding: 10px; border-radius: 8px; }
+        #chat-form { display: flex; }
+        #query-input { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px 0 0 8px; }
+        #chat-form button { padding: 10px 20px; border: none; background: #007bff; color: white; border-radius: 0 8px 8px 0; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Indian GST Assistant 🇮🇳</h1>
+    <div id="chat-window">
+        <div class="message bot-message">Hello! Ask me any question about the GST information in my document.</div>
+    </div>
+    <form id="chat-form">
+        <input type="text" id="query-input" placeholder="e.g., What is the GST on food items?" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        const chatWindow = document.getElementById('chat-window');
+        const chatForm = document.getElementById('chat-form');
+        const queryInput = document.getElementById('query-input');
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = queryInput.value.trim();
+            if (!query) return;
+
+            // Display user message
+            addMessage(query, 'user-message');
+            queryInput.value = '';
+
+            // Display typing indicator
+            addMessage('Thinking...', 'bot-message', 'typing-indicator');
+
+            try {
+                const response = await fetch('/chat/ask/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+
+                const data = await response.json();
+                
+                // Remove typing indicator and add bot's final answer
+                document.getElementById('typing-indicator').remove();
+                addMessage(data.answer, 'bot-message');
+
+            } catch (error) {
+                document.getElementById('typing-indicator').remove();
+                addMessage('Sorry, an error occurred. Please try again.', 'bot-message');
+                console.error('Error:', error);
+            }
+        });
+
+        function addMessage(text, className, id = '') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            if (id) messageDiv.id = id;
+            
+            // Basic markdown for newlines
+            messageDiv.innerHTML = text.replace(/\n/g, '<br>');
+
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll
+        }
+    </script>
+</body>
+</html>
