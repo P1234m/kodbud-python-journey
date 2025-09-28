@@ -21,5 +21,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', include('chat.urls')), # Include your app's URLs
+    path('', include('chat.urls')),  # Chat is the main page
 ]

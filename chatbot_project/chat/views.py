@@ -1,32 +1,9 @@
-# in chatbot/views.py
-
 from django.shortcuts import render
-from django.http import JsonResponse
-import json
-from .gst_engine.pipeline import answer_query
+from .gst_engine.pipeline import gst_chatbot_response
 
 def chat_view(request):
-    """Renders the main chat page."""
-    return render(request, 'chat.html')
-
-def ask_bot(request):
-    """API endpoint to get an answer from the chatbot."""
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        query = data.get('query')
-
-        if not query:
-            return JsonResponse({'error': 'No query provided'}, status=400)
-
-        # Get the answer from your pipeline
-        answer = answer_query(query)
-        
-        return JsonResponse({'answer': answer})
-    
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
-
-        
-            
-
-
-    
+    response = ""
+    if request.method == "POST":
+        user_query = request.POST.get("query", "")
+        response = gst_chatbot_response(user_query)
+    return render(request, "index.html", {"response": response})

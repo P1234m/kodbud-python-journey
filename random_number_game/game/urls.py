@@ -4,4 +4,5 @@ from game import views
 
 urlpatterns = [
     path("",views.game_view,name="game"),
+    #path("api/",views.ga)
 ]

@@ -1,0 +1,37 @@
+Category,Subcategory,GST Rate,Notes
+Food,Fresh fruits and vegetables,0%,Loose, un-packaged, unbranded
+Food,Fresh milk,0%,Loose, un-packaged, unbranded
+Food,Food grains, cereals, flour,0%,Loose, un-packaged, unbranded
+Food,Jaggery and salt,0%,Loose, un-packaged, unbranded
+Food,Packaged grains and cereals,5%,Pre-packaged and branded
+Food,Sugar, tea, coffee, spices,5%,Common household items
+Food,Edible oils,5%,Common household items
+Food,Branded paneer,5%,Common household item
+Food,Butter, cheese, ghee,12%,Processed food
+Food,Fruit juices,12%,Processed food
+Food,Ice cream,18%,Processed food
+Personal Care,Toothpaste,18%,Standard personal care item
+Personal Care,Soaps, hair oil, shampoo,18%,Standard personal care items
+Home Appliances,Air conditioners,28%,Consumer appliances
+Home Appliances,Refrigerators,28%,Consumer appliances
+Home Appliances,Washing machines,28%,Consumer appliances
+Home Appliances,Water heaters,28%,Consumer appliances
+Automobiles,Electric vehicles,5%,No compensation cess
+Automobiles,Small petrol cars,29%,28% GST + 1% Cess
+Automobiles,Small diesel cars,31%,28% GST + 3% Cess
+Automobiles,Large cars and SUVs,50%,28% GST + 22% Cess
+Automobiles,Two-wheelers,28%,Standard GST rate
+Real Estate,Ready-to-move-in homes,N/A,GST not applicable
+Real Estate,Sale of land,N/A,GST not applicable
+Real Estate,Affordable housing,1%,Without Input Tax Credit (ITC)
+Real Estate,Non-affordable housing,5%,Without Input Tax Credit (ITC)
+Real Estate,Construction services,18%,Standard GST rate
+Services,IT, financial, banking, telecom,18%,Standard GST rate
+Services,Restaurant services,5%,No Input Tax Credit allowed
+Services,Hotel tariff < ₹1000,0%,GST exempt
+Services,Hotel tariff > ₹7500,18%,Standard GST rate
+Precious Items,Gold, silver, platinum jewellery,3%,Special GST rate
+Precious Items,Cut and polished diamonds,1.5%,Special GST rate
+Outside GST,Alcohol for human consumption,N/A,Taxed separately by state/central government
+Outside GST,Petroleum products,N/A,Includes petrol, diesel, aviation turbine fuel
+Outside GST,Electricity,N/A,Outside GST regime
